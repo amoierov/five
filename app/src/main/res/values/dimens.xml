@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_start_end_content">16dp</dimen>
+    <dimen name="margin_top_card">18dp</dimen>
+    <dimen name="radius_card">10dp</dimen>
+    <dimen name="margin_start_text_search">17dp</dimen>
+    <dimen name="margin_top_bottom_text_search">11dp</dimen>
+    <dimen name="size_text_search">20sp</dimen>
+    <dimen name="margin_start_img_search">41dp</dimen>
+    <dimen name="margin_end_img_search">13dp</dimen>
+    <dimen name="margin_top_recycle">22dp</dimen>
+    <dimen name="margin_bottom_category">12dp</dimen>
+    <dimen name="size_text_category">18sp</dimen>
+    <dimen name="margin_start_text_category">26dp</dimen>
+    <dimen name="margin_top_text_category">10dp</dimen>
+    <dimen name="margin_start_arrow2">20dp</dimen>
+    <dimen name="margin_start_top_bottom_text_search">18dp</dimen>
+    <dimen name="margin_top_exhibits">18dp</dimen>
+    <dimen name="margin_end_exhibits">8dp</dimen>
+    <dimen name="margin_bottom_exhibits">28dp</dimen>
+    <dimen name="radius_card_exhibit">12dp</dimen>
+    <dimen name="width_img_exhibit">186dp</dimen>
+    <dimen name="height_img_exhibit">139dp</dimen>
+    <dimen name="margin_start_text_exhibit">12dp</dimen>
+    <dimen name="margin_top_bottom_text_exhibit">20dp</dimen>
+    <dimen name="size_text_exhibit">20sp</dimen>
+</resources>

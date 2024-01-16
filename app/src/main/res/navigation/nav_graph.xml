@@ -1,0 +1,23 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/yourFragment">
+
+    <fragment
+        android:id="@+id/yourFragment"
+        android:name="com.example.five.fragments.MainFragment"
+        android:label="Your Fragment">
+        <!-- Ваши настройки фрагмента здесь -->
+        <action
+            android:id="@+id/action_yourFragment_to_exhibitsFragment"
+            app:destination="@id/exhibitsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/exhibitsFragment"
+        android:name="com.example.five.fragments.ExhibitsFragment"
+        android:label="exhibits">
+        <!-- Ваши настройки фрагмента здесь -->
+    </fragment>
+
+</navigation>
