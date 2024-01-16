@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">five</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_search">Введите название категории</string>
+    <string name="name_category">Название категории</string>
+    <string name="nameArtwork">Название</string>
+    <string name="yearArtwork">1972</string>
+    <string name="AuthorArtwork">Автор name</string>
 </resources>
