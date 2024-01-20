@@ -32,6 +32,7 @@
                 app:layout_constraintVertical_bias="0.5" />
 
             <TextView
+                android:id="@+id/menuBarText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_start_top_bottom_text_search"
@@ -74,7 +75,7 @@
                 android:backgroundTint="@android:color/transparent"
                 android:fontFamily="@font/inter_regular"
                 android:padding="0dp"
-                android:text="@string/text_search"
+                android:hint="@string/text_search"
                 android:textColor="@color/gray"
                 android:textSize="@dimen/size_text_search"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -85,15 +86,13 @@
                 android:id="@+id/imageViewSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_start_img_search"
                 android:layout_marginEnd="@dimen/margin_end_img_search"
                 android:layout_weight="1"
                 android:src="@drawable/group_8"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textInputEditText"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5"  />
+                app:layout_constraintVertical_bias="0.5" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

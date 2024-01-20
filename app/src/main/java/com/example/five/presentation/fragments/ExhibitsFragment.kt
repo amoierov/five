@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -17,7 +18,6 @@ import com.example.five.databinding.FragmentArtworkBinding
 import com.example.five.presentation.viewmodel.ArtworkViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class ExhibitsFragment : Fragment() {
 
     private val binding by viewBinding(FragmentArtworkBinding::bind)
@@ -42,15 +42,27 @@ class ExhibitsFragment : Fragment() {
 
         val artworkViewModel: ArtworkViewModel by viewModels()
 
+        binding.menuBarText.text = args.selectedCategoryTitle
 
         artworkViewModel.loadArtworks(args.selectedCategoryTitle)
 
+        binding.textInputEditText.addTextChangedListener { editable ->
+            val searchText = editable.toString()
+            if (searchText.length >= 2) {
+                // Выполнить фильтрацию данных по введенному тексту
+                artworkViewModel.filterCategories(searchText)
+            } else {
+                artworkViewModel.restoreOriginalCategories()
+            }
+        }
 
         val artworkAdapter = ArtworkAdapter(emptyList())
         recyclerView.adapter = artworkAdapter
 
         artworkViewModel.artworks.observe(viewLifecycleOwner) { artworks ->
-            artworkAdapter.updateData(artworks)
+            if (artworks != null) {
+                artworkAdapter.updateData(artworks)
+            }
         }
     }
 }

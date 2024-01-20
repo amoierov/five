@@ -1,11 +1,9 @@
 package com.example.five.presentation.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.five.data.network.ApiService
 import com.example.five.data.network.NetworkService
 import com.example.five.data.models.ArtworkType
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,11 +11,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-@HiltViewModel
-class CategoryViewModel @Inject constructor(private val apiService: ApiService) : ViewModel() {
 
-    private val _categories = MutableLiveData<List<ArtworkType>>()
-    val categories: LiveData<List<ArtworkType>> = _categories
+class CategoryViewModel : ViewModel() {
+
+    private val _categories = MutableLiveData<List<ArtworkType>?>()
+    val categories: MutableLiveData<List<ArtworkType>?> = _categories
+
+    // Дополнительное поле для хранения оригинального списка
+    private var originalCategories: List<ArtworkType>? = null
 
     fun loadCategories() {
         viewModelScope.launch {
@@ -25,7 +26,8 @@ class CategoryViewModel @Inject constructor(private val apiService: ApiService) 
                 val response = NetworkService.retrofit.getArtworkTypes()
                 Log.d("Types", "Response: ${response}")
                 withContext(Dispatchers.Main) {
-                    _categories.value = response.data
+                    originalCategories = response.data
+                    _categories.value = originalCategories
                 }
             } catch (e: Exception) {
                 // Обработка ошибки сети
@@ -34,5 +36,16 @@ class CategoryViewModel @Inject constructor(private val apiService: ApiService) 
                 }
             }
         }
+    }
+
+    fun filterCategories(searchText: String) {
+        val filteredList = _categories.value?.filter {
+            it.title.contains(searchText, ignoreCase = true)
+        }
+        _categories.value = filteredList
+    }
+
+    fun restoreOriginalCategories() {
+        _categories.value = originalCategories
     }
 }
