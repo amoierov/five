@@ -1,4 +1,4 @@
-package com.example.five
+package com.example.five.di
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 

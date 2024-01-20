@@ -5,19 +5,26 @@
 
     <fragment
         android:id="@+id/yourFragment"
-        android:name="com.example.five.fragments.MainFragment"
+        android:name="com.example.five.presentation.fragments.MainFragment"
         android:label="Your Fragment">
         <!-- Ваши настройки фрагмента здесь -->
         <action
-            android:id="@+id/action_yourFragment_to_exhibitsFragment"
+            android:id="@+id/action_mainFragment_to_exhibitsFragment"
             app:destination="@id/exhibitsFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/exhibitsFragment"
-        android:name="com.example.five.fragments.ExhibitsFragment"
+        android:name="com.example.five.presentation.fragments.ExhibitsFragment"
         android:label="exhibits">
         <!-- Ваши настройки фрагмента здесь -->
+        <action
+            android:id="@+id/action_exhibitsFragment_to_yourFragment"
+            app:destination="@id/yourFragment" />
+        <argument
+            android:name="selectedCategoryTitle"
+            app:argType="string" />
+
     </fragment>
 
 </navigation>

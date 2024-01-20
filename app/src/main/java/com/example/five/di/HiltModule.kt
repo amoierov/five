@@ -1,4 +1,4 @@
-package com.example.five
+package com.example.five.di
 
 import com.example.five.data.network.ApiService
 import dagger.Module

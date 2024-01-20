@@ -1,4 +1,4 @@
-package com.example.five.adapters
+package com.example.five.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,15 +7,17 @@ import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.five.R
 import com.example.five.databinding.ItemCategoryBinding
+import com.example.five.data.models.ArtworkType
+import com.example.five.presentation.interfaces.OnItemClickListener
 
-class CategoryAdapter(private val categoryList: List<String>, private val onClick: () -> Unit): RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+class CategoryAdapter(private var categoryList: List<ArtworkType>, private val onItemClickListener: OnItemClickListener): RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
     class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         private val binding by viewBinding(ItemCategoryBinding::bind)
-        fun bind(category: String, onClick: () -> Unit) {
-            binding.textCategory.text = category
+        fun bind(category: ArtworkType, onItemClickListener: OnItemClickListener) {
+            binding.textCategory.text = category.title
             binding.arrow.setOnClickListener {
-                onClick()
+                onItemClickListener.onItemClick(category.title)
             }
         }
     }
@@ -31,8 +33,11 @@ class CategoryAdapter(private val categoryList: List<String>, private val onClic
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val category = categoryList[position]
-        holder.bind(category) {onClick()}
+        holder.bind(category, onItemClickListener)
     }
 
-
+    fun updateData(newCategories: List<ArtworkType>) {
+        categoryList = newCategories
+        notifyDataSetChanged()
+    }
 }

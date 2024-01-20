@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.ExhibitsFragment">
+    tools:context=".presentation.fragments.ExhibitsFragment">
 
 
     <RelativeLayout
@@ -100,11 +100,10 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/artworkList"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_start_end_content"
         android:layout_marginTop="@dimen/margin_top_exhibits"
-        android:layout_marginEnd="@dimen/margin_start_end_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardViewSearch" />
