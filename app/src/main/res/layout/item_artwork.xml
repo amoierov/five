@@ -23,6 +23,7 @@
                 android:id="@+id/imageArtwork"
                 android:layout_width="@dimen/width_img_exhibit"
                 android:layout_height="@dimen/height_img_exhibit"
+                android:scaleType="centerCrop"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@mipmap/ic_launcher" />
@@ -43,7 +44,9 @@
                     android:id="@+id/nameArtwork"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
                     android:fontFamily="@font/inter_regular"
+                    android:lines="1"
                     android:text="@string/nameArtwork"
                     android:textSize="@dimen/size_text_exhibit" />
 

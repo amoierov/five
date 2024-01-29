@@ -1,4 +1,4 @@
-package com.example.five.presentation.adapters
+package com.example.five.categorylist.presentation
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.five.R
 import com.example.five.databinding.ItemCategoryBinding
-import com.example.five.data.models.ArtworkType
-import com.example.five.presentation.interfaces.OnItemClickListener
+import com.example.five.categorylist.domain.models.ArtworkType
 
 class CategoryAdapter(private var categoryList: List<ArtworkType>, private val onItemClickListener: OnItemClickListener): RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
@@ -16,7 +15,7 @@ class CategoryAdapter(private var categoryList: List<ArtworkType>, private val o
         private val binding by viewBinding(ItemCategoryBinding::bind)
         fun bind(category: ArtworkType, onItemClickListener: OnItemClickListener) {
             binding.textCategory.text = category.title
-            binding.arrow.setOnClickListener {
+            binding.category.setOnClickListener {
                 onItemClickListener.onItemClick(category.title)
             }
         }

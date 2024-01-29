@@ -1,4 +1,4 @@
-package com.example.five.presentation.adapters
+package com.example.five.artworklist.presentation
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +8,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.example.five.R
 import com.example.five.databinding.ItemArtworkBinding
-import com.example.five.data.models.Artwork
-import com.example.five.data.models.ArtworkType
+import com.example.five.artworklist.domain.models.Artwork
 
 class ArtworkAdapter(private var artworksList: List<Artwork>): RecyclerView.Adapter<ArtworkAdapter.ArtworkViewHolder>() {
     class ArtworkViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

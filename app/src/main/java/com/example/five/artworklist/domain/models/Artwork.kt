@@ -1,21 +1,6 @@
-package com.example.five.data.models
+package com.example.five.artworklist.domain.models
 import com.google.gson.annotations.SerializedName
 
-
-data class ApiResponseTypes(
-    @SerializedName("data")
-    val data: List<ArtworkType>,
-)
-
-data class ApiResponseArtworks(
-    @SerializedName("data")
-    val data: List<Artwork>,
-)
-
-data class ArtworkType(
-    @SerializedName("title")
-    val title: String
-)
 
 data class Artwork(
     @SerializedName("artist_title")

@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/yourFragment"
-        android:name="com.example.five.presentation.fragments.MainFragment"
+        android:name="com.example.five.categorylist.presentation.CategoriesFragment"
         android:label="Your Fragment">
         <!-- Ваши настройки фрагмента здесь -->
         <action
@@ -15,7 +15,7 @@
 
     <fragment
         android:id="@+id/exhibitsFragment"
-        android:name="com.example.five.presentation.fragments.ExhibitsFragment"
+        android:name="com.example.five.artworklist.presentation.ArtworksFragment"
         android:label="exhibits">
         <!-- Ваши настройки фрагмента здесь -->
         <action
