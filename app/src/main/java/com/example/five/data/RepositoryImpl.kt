@@ -1,9 +1,9 @@
 package com.example.five.data
 
 import com.example.five.artworklist.domain.RepositoryArtwork
-import com.example.five.artworklist.domain.models.ArtworksResponse
+import com.example.five.data.models.ArtworksResponse
 import com.example.five.categorylist.domain.Repository
-import com.example.five.categorylist.domain.models.ArtworkTypesResponse
+import com.example.five.data.models.ArtworkTypesResponse
 import com.example.five.data.network.ApiService
 import javax.inject.Inject
 

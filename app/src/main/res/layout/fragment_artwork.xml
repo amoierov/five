@@ -40,7 +40,7 @@
                 android:layout_marginBottom="@dimen/margin_start_top_bottom_text_search"
                 android:fontFamily="@font/open_sans_regular"
                 android:text="@string/name_category"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:textSize="@dimen/size_text_search"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/arrowBack"

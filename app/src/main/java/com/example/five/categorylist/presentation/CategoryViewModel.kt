@@ -37,7 +37,7 @@ class CategoryViewModel @Inject constructor(
             } catch (e: Exception) {
                 // Обработка ошибки сети
                 withContext(Dispatchers.Main) {
-                    Log.e("ArtworkList", "Ошибка сети: ${e.message}")
+                    Log.e("CategoryList", "Ошибка сети: ${e.message}")
                 }
             }
         }

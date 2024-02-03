@@ -1,7 +1,7 @@
 package com.example.five.data.network
 
-import com.example.five.artworklist.domain.models.ArtworksResponse
-import com.example.five.categorylist.domain.models.ArtworkTypesResponse
+import com.example.five.data.models.ArtworksResponse
+import com.example.five.data.models.ArtworkTypesResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
