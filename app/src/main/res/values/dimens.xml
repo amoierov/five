@@ -19,6 +19,7 @@
     <dimen name="margin_end_exhibits">8dp</dimen>
     <dimen name="margin_bottom_exhibits">28dp</dimen>
     <dimen name="radius_card_exhibit">12dp</dimen>
+    <dimen name="margin_save_icon">13dp</dimen>
     <dimen name="width_img_exhibit">186dp</dimen>
     <dimen name="height_img_exhibit">139dp</dimen>
     <dimen name="margin_start_text_exhibit">12dp</dimen>
