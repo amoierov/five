@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -55,7 +56,10 @@ fun ArtworkItem(artwork: Artwork) {
         ) {
             GlideImage(
                 modifier = Modifier
-                    .size(height = 139.dp, width = 186.dp)
+                    .size(
+                        height = dimensionResource(id = R.dimen.height_img_exhibit),
+                        width = dimensionResource(id = R.dimen.width_img_exhibit)
+                    )
                     .clip(RoundedCornerShape(8.dp))
                     .fillMaxWidth(),
                 model = "https://www.artic.edu/iiif/2/${artwork.imageId}/full/843,/0/default.jpg",
@@ -64,7 +68,8 @@ fun ArtworkItem(artwork: Artwork) {
             )
             Row(
                 modifier = Modifier.fillMaxHeight(),
-                verticalAlignment = Alignment.Bottom) {
+                verticalAlignment = Alignment.Bottom
+            ) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
