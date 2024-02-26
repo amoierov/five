@@ -61,14 +61,22 @@ fun ArtworkItem(artwork: Artwork) {
                         height = dimensionResource(id = R.dimen.height_img_exhibit),
                         width = dimensionResource(id = R.dimen.width_img_exhibit)
                     )
+
+
+
                     .clip(RoundedCornerShape(dimensionResource(id = R.dimen.corner_shape_img)))
+
                     .fillMaxWidth(),
                 model = "https://www.artic.edu/iiif/2/${artwork.imageId}/full/843,/0/default.jpg",
                 contentScale = ContentScale.FillBounds,
                 contentDescription = "image",
             )
             Row(
+
+
+
                 modifier = Modifier.fillMaxHeight(), verticalAlignment = Alignment.Bottom
+
             ) {
                 Column(
                     modifier = Modifier
