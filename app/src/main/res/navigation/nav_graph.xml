@@ -7,7 +7,6 @@
         android:id="@+id/yourFragment"
         android:name="com.example.five.categorylist.presentation.CategoriesFragment"
         android:label="Your Fragment">
-        <!-- Ваши настройки фрагмента здесь -->
         <action
             android:id="@+id/action_mainFragment_to_exhibitsFragment"
             app:destination="@id/exhibitsFragment" />
@@ -17,7 +16,6 @@
         android:id="@+id/exhibitsFragment"
         android:name="com.example.five.artworklist.presentation.ArtworksFragment"
         android:label="exhibits">
-        <!-- Ваши настройки фрагмента здесь -->
         <action
             android:id="@+id/action_exhibitsFragment_to_yourFragment"
             app:destination="@id/yourFragment" />

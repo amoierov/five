@@ -1,6 +1,8 @@
 package com.example.five.categorylist.presentation
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -46,6 +48,25 @@ class CategoriesFragment : Fragment(R.layout.fragment_category) {
                 categoryAdapter.updateData(categories)
             }
         }
+
+        binding.textInputEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Do nothing
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Проверяем, содержит ли поле ввода текст
+                if (s.isNullOrEmpty()) {
+                    // Если текст отсутствует, показываем ImageView
+                    binding.imageViewSearch.visibility = View.VISIBLE
+                } else {
+                    // Если есть текст, скрываем ImageView
+                    binding.imageViewSearch.visibility = View.GONE
+                }
+            }
+            override fun afterTextChanged(s: Editable?) {
+                // Do nothing
+            }
+        })
     }
 }
 
