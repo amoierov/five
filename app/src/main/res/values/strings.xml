@@ -7,4 +7,8 @@
     <string name="nameArtwork">Название</string>
     <string name="yearArtwork">1972</string>
     <string name="AuthorArtwork">Автор name</string>
+    <string name="type">Тип: </string>
+    <string name="material">Материалы: </string>
+    <string name="size">Размеры: </string>
+    <string name="gallery">Галерея: </string>
 </resources>

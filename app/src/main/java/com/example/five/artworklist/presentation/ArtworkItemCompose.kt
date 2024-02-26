@@ -37,7 +37,7 @@ import com.example.five.artworklist.domain.models.Artwork
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun ArtworkItem(artwork: Artwork) {
+fun ArtworkItem(artwork: Artwork, idImage: Int) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -113,7 +113,7 @@ fun ArtworkItem(artwork: Artwork) {
                     }
                 }
                 Image(
-                    painter = painterResource(id = R.drawable.bookmark),
+                    painter = painterResource(id = idImage),
                     contentDescription = "",
                     modifier = Modifier
                         .padding(dimensionResource(id = R.dimen.padding_image))
