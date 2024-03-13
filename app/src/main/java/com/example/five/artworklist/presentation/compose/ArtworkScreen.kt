@@ -1,4 +1,4 @@
-package com.example.five.artworklist.presentation
+package com.example.five.artworklist.presentation.compose
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -18,6 +18,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SearchBar
@@ -35,12 +36,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.five.R
 import com.example.five.artworklist.domain.models.Artwork
+import com.example.five.artworklist.presentation.ArtworkViewModel
+import com.example.five.artworklist.presentation.ArtworksFragmentDirections
 
 
 @Composable
@@ -61,14 +63,11 @@ fun AppBar(name: String, navController: NavController) {
                 )
         ) {
             // Иконка "Назад"
-            Image(
-                painter = painterResource(id = R.drawable.arrow_1),
+            Image(painter = painterResource(id = R.drawable.arrow_1),
                 contentDescription = "Arrow Back",
-                modifier = Modifier
-                    .clickable {
-                        navController.navigate(R.id.action_exhibitsFragment_to_yourFragment)
-                    }
-            )
+                modifier = Modifier.clickable {
+                    navController.popBackStack()
+                })
             Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.spacer_18dp))) // Пространство между иконкой и текстом
 
             // Текст в верхнем баре
@@ -76,7 +75,7 @@ fun AppBar(name: String, navController: NavController) {
                 text = name,
                 color = Color.White,
                 fontSize = 20.sp,
-                fontFamily = FontFamily(Font(R.font.open_sans_regular)),
+                fontFamily = FontFamily(Font(R.font.inter_regular)),
                 modifier = Modifier.wrapContentWidth()
             )
         }
@@ -126,7 +125,8 @@ fun SearchMenu(viewModel: ArtworkViewModel) {
             placeholder = {
                 Text(
                     text = "Введите название категории",
-                    fontFamily = FontFamily(Font(R.font.open_sans_regular)), fontSize = 20.sp
+                    fontFamily = FontFamily(Font(R.font.inter_regular)),
+                    fontSize = 20.sp
                 )
             },
             trailingIcon = {
@@ -152,87 +152,73 @@ fun ArtworkScreen(
     Column {
         AppBar(nameCategory, navController)
         SearchMenu(viewModel)
-        if (artworks.isNotEmpty()) {
-            LazyVerticalGrid(columns = GridCells.Fixed(2)) {
-                items(artworks) { item ->
-                    ArtworkItem(artwork = item, R.drawable.bookmark)
+        Box(modifier = Modifier.background(Color.White)) {
+            if (viewModel.isLoading.value == true) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(bottom = 120.dp),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    CircularProgressIndicator(
+                        color = MaterialTheme.colorScheme.secondary,
+                        trackColor = MaterialTheme.colorScheme.surfaceVariant,
+                    )
+                    Text(
+                        text = "Загрузка...",
+                        color = Color.Gray,
+                        fontSize = 20.sp,
+                        textAlign = TextAlign.Center,
+                        fontFamily = FontFamily(
+                            Font(R.font.inter_bold)
+                        )
+                    )
+                }
+            } else {
+                if (artworks.isNotEmpty()) {
+                    LazyVerticalGrid(columns = GridCells.Fixed(2)) {
+                        items(artworks) { item ->
+                            ArtworkItem(artwork = item, R.drawable.bookmark) {
+                                val action =
+                                    ArtworksFragmentDirections.actionArtworksFragmentToArtworkDetailFragment(
+                                        item
+                                    )
+                                navController.navigate(action)
+                            }
+                        }
+                    }
+                } else {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(bottom = 120.dp),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+
+                        Image(
+                            painter = painterResource(id = R.drawable.no_found_artwork),
+                            contentDescription = "No artwork found",
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 30.dp)
+                        )
+                        Text(
+                            text = "Ничего не было найдено",
+                            color = Color.Gray,
+                            fontSize = 20.sp,
+                            textAlign = TextAlign.Center,
+                            fontFamily = FontFamily(
+                                Font(R.font.inter_bold)
+                            )
+                        )
+                    }
                 }
             }
-        } else {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(bottom = 120.dp),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-
-                Image(
-                    painter = painterResource(id = R.drawable.no_found_artwork),
-                    contentDescription = "No artwork found",
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 30.dp)
-                )
-                Text(
-                    text = "Ничего не было найдено",
-                    color = Color.Gray,
-                    fontSize = 20.sp,
-                    textAlign = TextAlign.Center,
-                    fontFamily = FontFamily(
-                        Font(R.font.inter_bold)
-                    )
-                )
-            }
         }
-
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ArtworkSaved(
-    artworks: List<Artwork>,
-    navController: NavController,
-    viewModel: ArtworkViewModel
-) {
-    Column {
-        AppBar("Избранное", navController)
-        SearchMenu(viewModel)
-        if (artworks.isNotEmpty()) {
-            LazyVerticalGrid(columns = GridCells.Fixed(2)) {
-                items(artworks) { item ->
-                    ArtworkItem(artwork = item, R.drawable.bookmark_red_small)
-                }
-            }
-        } else {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(bottom = 120.dp),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
 
-                Image(
-                    painter = painterResource(id = R.drawable.bookmark_empty_saved),
-                    contentDescription = "No artwork found",
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 30.dp)
-                )
-                Text(
-                    text = "У вас еще нет работ в избранном",
-                    color = Color.Gray,
-                    fontSize = 20.sp,
-                    textAlign = TextAlign.Center,
-                    fontFamily = FontFamily(
-                        Font(R.font.inter_bold)
-                    )
-                )
-            }
-        }
-
-    }
-}
 

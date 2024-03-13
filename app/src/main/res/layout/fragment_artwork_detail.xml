@@ -38,6 +38,7 @@
                 android:layout_marginTop="@dimen/margin_start_top_bottom_text_search"
                 android:layout_marginBottom="@dimen/margin_start_top_bottom_text_search"
                 android:fontFamily="@font/open_sans_regular"
+                android:lines="1"
                 android:text="@string/name_category"
                 android:textColor="@color/white"
                 android:textSize="@dimen/size_text_search" />
@@ -202,6 +203,7 @@
                         tools:text="@tools:sample/lorem" />
                 </LinearLayout>
                 <TextView
+                    android:id="@+id/creditsArtwork"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"

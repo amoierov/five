@@ -5,12 +5,13 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.five.R
 import com.example.five.artworklist.domain.models.Artwork
+import com.example.five.artworklist.presentation.compose.ArtworkItem
 
 class ArtworkAdapter(private var artworksList: List<Artwork>): RecyclerView.Adapter<ArtworkAdapter.ArtworkViewHolder>() {
     class ArtworkViewHolder(val composeView: ComposeView) : RecyclerView.ViewHolder(composeView) {
         fun bind(artwork: Artwork) {
             composeView.setContent {
-                ArtworkItem(artwork = artwork, R.drawable.bookmark)
+                ArtworkItem(artwork = artwork, R.drawable.bookmark) {}
             }
         }
     }

@@ -1,27 +1,46 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/yourFragment">
+    app:startDestination="@id/CategoriesFragment">
 
     <fragment
-        android:id="@+id/yourFragment"
+        android:id="@+id/CategoriesFragment"
         android:name="com.example.five.categorylist.presentation.CategoriesFragment"
         android:label="Your Fragment">
         <action
-            android:id="@+id/action_mainFragment_to_exhibitsFragment"
-            app:destination="@id/exhibitsFragment" />
+            android:id="@+id/action_categoriesFragment_to_artworksFragment"
+            app:destination="@id/ArtworksFragment" />
+        <action
+            android:id="@+id/action_categoriesFragment_to_artworkSavedFragment"
+            app:destination="@id/ArtworkSavedFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/exhibitsFragment"
+        android:id="@+id/ArtworksFragment"
         android:name="com.example.five.artworklist.presentation.ArtworksFragment"
         android:label="exhibits">
         <action
-            android:id="@+id/action_exhibitsFragment_to_yourFragment"
-            app:destination="@id/yourFragment" />
+            android:id="@+id/action_artworksFragment_to_artworkDetailFragment"
+            app:destination="@id/ArtworkDetailFragment" />
         <argument
             android:name="selectedCategoryTitle"
             app:argType="string" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/ArtworkDetailFragment"
+        android:name="com.example.five.artworklist.presentation.ArtworkDetailFragment"
+        android:label="Your Fragment">
+        <argument
+            android:name="selectedArtwork"
+            app:argType="com.example.five.artworklist.domain.models.Artwork" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ArtworkSavedFragment"
+        android:name="com.example.five.savedartworklist.presentation.ArtworksSavedFragment"
+        android:label="Your Fragment">
 
     </fragment>
 

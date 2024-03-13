@@ -1,7 +1,8 @@
-package com.example.five.artworklist.presentation
+package com.example.five.artworklist.presentation.compose
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -37,7 +38,7 @@ import com.example.five.artworklist.domain.models.Artwork
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun ArtworkItem(artwork: Artwork, idImage: Int) {
+fun ArtworkItem(artwork: Artwork, idImage: Int, onClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -47,6 +48,7 @@ fun ArtworkItem(artwork: Artwork, idImage: Int) {
             )
             .clip(RoundedCornerShape(dimensionResource(id = R.dimen.radius_card_artwork)))
             .background(Color.White)
+            .clickable(onClick = onClick)
     ) {
         ElevatedCard(
             colors = CardDefaults.cardColors(
@@ -123,12 +125,3 @@ fun ArtworkItem(artwork: Artwork, idImage: Int) {
         }
     }
 }
-
-
-
-
-
-
-
-
-

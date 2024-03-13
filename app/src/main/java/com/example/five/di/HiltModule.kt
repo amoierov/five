@@ -52,5 +52,4 @@ object HiltModule {
             .build()
             .create(ApiService::class.java)
     }
-
 }

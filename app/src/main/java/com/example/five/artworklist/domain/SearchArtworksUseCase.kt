@@ -6,9 +6,9 @@ import javax.inject.Inject
 class SearchArtworksUseCase @Inject constructor() {
     fun filterArtworks(originalList: List<Artwork>, searchText: String): List<Artwork> {
         return originalList.filter { artwork ->
-            artwork.title.contains(searchText, ignoreCase = true) ||
-                    artwork.artistTitle.contains(searchText, ignoreCase = true) ||
-                    artwork.dateDisplay.contains(searchText, ignoreCase = true)
+            artwork.title?.contains(searchText, ignoreCase = true) ?: false ||
+                    artwork.artistTitle?.contains(searchText, ignoreCase = true) ?: false ||
+                    artwork.dateDisplay?.contains(searchText, ignoreCase = true) ?: false
         }
     }
 }

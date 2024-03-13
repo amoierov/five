@@ -1,4 +1,4 @@
-package com.example.five.artworklist.presentation
+package com.example.five.savedartworklist.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,31 +9,27 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
-import com.example.five.artworklist.presentation.compose.ArtworkScreen
+import com.example.five.artworklist.presentation.ArtworkViewModel
+import com.example.five.savedartworklist.presentation.compose.ArtworkSaved
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
-class ArtworksFragment : Fragment() {
+class ArtworksSavedFragment : Fragment() {
 
-    private val args: ArtworksFragmentArgs by navArgs()
     private val artworkViewModel: ArtworkViewModel by activityViewModels()
-
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val nameCategory = args.selectedCategoryTitle
-        artworkViewModel.loadArtworks(nameCategory)
+        // Inflate the layout for this fragment
         return ComposeView(requireContext()).apply {
             setContent {
-                val artworks by artworkViewModel.artworks.observeAsState(emptyList())
-                artworks?.let { ArtworkScreen(artworks = it, nameCategory, findNavController(), artworkViewModel) }
+                val artworksSaved by artworkViewModel.artworksSaved.observeAsState(emptyList())
+                artworksSaved?.let { ArtworkSaved(artworksSaved = it, findNavController(), artworkViewModel) }
             }
         }
     }
+
+
 }

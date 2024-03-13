@@ -9,7 +9,7 @@ interface ApiService {
     companion object {
         private const val ARTWORK_SEARCH_FIELDS = "id,title,image_id,artist_title," +
                 "artist_display,artist_id,artwork_type_id,artwork_type_title,config," +
-                "material_titles,credit_line,dimensions,date_display,image_id,alt_image_ids"
+                "material_titles,credit_line,dimensions,date_display,image_id,alt_image_ids, gallery_title"
     }
     @GET("api/v1/artwork-types")
     suspend fun getArtworkTypes(): ArtworkTypesResponse
