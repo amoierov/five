@@ -42,6 +42,9 @@
         android:name="com.example.five.savedartworklist.presentation.ArtworksSavedFragment"
         android:label="Your Fragment">
 
+        <action
+            android:id="@+id/action_ArtworkSavedFragment_to_ArtworkDetailFragment"
+            app:destination="@id/ArtworkDetailFragment" />
     </fragment>
 
 </navigation>

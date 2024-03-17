@@ -8,6 +8,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.five.artworklist.domain.GetArtworksUseCase
 import com.example.five.artworklist.domain.SearchArtworksUseCase
 import com.example.five.artworklist.domain.models.Artwork
+import com.example.five.artworklist.domain.models.toSavedArtworkEntity
+import com.example.five.data.local.SavedArtworkEntity
+import com.example.five.savedartworklist.domain.AddSavedArtworkUseCase
+import com.example.five.savedartworklist.domain.DeleteSavedArtworkUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,14 +21,13 @@ import javax.inject.Inject
 @HiltViewModel
 class ArtworkViewModel @Inject constructor(
     private val getArtworksUseCase: GetArtworksUseCase,
-    private val searchArtworksUseCase: SearchArtworksUseCase
+    private val searchArtworksUseCase: SearchArtworksUseCase,
+    private val deleteSavedArtworkUseCase: DeleteSavedArtworkUseCase,
+    private val addSavedArtworkUseCase: AddSavedArtworkUseCase
 ) : ViewModel() {
 
     private val _artworks = MutableLiveData<List<Artwork>>()
-    val artworks: MutableLiveData<List<Artwork>> = _artworks
-
-    private val _artworksSaved = MutableLiveData<List<Artwork>?>()
-    val artworksSaved: MutableLiveData<List<Artwork>?> = _artworksSaved
+    val artworks: LiveData<List<Artwork>> = _artworks
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -38,8 +41,8 @@ class ArtworkViewModel @Inject constructor(
             try {
                 val response = getArtworksUseCase.searchArtworks(category)
                 Log.d("ArtworkList", "Response: ${response}")
+                originalArtworks = response.data
                 withContext(Dispatchers.Main) {
-                    originalArtworks = response.data
                     _artworks.value = originalArtworks.orEmpty()
                     _isLoading.value = false
                 }
@@ -49,6 +52,33 @@ class ArtworkViewModel @Inject constructor(
                     Log.e("ArtworkList", "Ошибка сети: ${e.message}")
                     _isLoading.value = false
                 }
+            }
+        }
+    }
+
+    fun toggleSavedArtwork(artwork: Artwork) {
+        viewModelScope.launch {
+            try {
+                if (artwork.isBookmarked) {
+                    deleteSavedArtworkUseCase.deleteSavedArtwork(artwork.toSavedArtworkEntity())
+                } else {
+                    artwork.isBookmarked = true
+                    addSavedArtworkUseCase.insertSavedArtwork(artwork.toSavedArtworkEntity())
+
+                    // индекс артворка в списке
+                    val index = _artworks.value?.indexOfFirst { it.imageId == artwork.imageId }
+
+                    // Если артворк найден, обновите его в списке
+                    index?.let {
+                        val updatedArtworks = _artworks.value?.toMutableList()
+                        updatedArtworks?.set(index, artwork)
+                        _artworks.postValue(updatedArtworks.orEmpty())
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e(
+                    "SavedArtworkList", "ROOM: Ошибка при изменении статуса артворка ${e.message}"
+                )
             }
         }
     }

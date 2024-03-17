@@ -11,14 +11,21 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SearchBar
+import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -33,17 +40,21 @@ import com.example.five.artworklist.presentation.ArtworksFragmentDirections
 import com.example.five.artworklist.presentation.compose.AppBar
 import com.example.five.artworklist.presentation.compose.ArtworkItem
 import com.example.five.artworklist.presentation.compose.SearchMenu
+import com.example.five.savedartworklist.presentation.ArtworksSavedFragmentDirections
+import com.example.five.savedartworklist.presentation.SavedArtworkViewModel
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ArtworkSaved(
-    artworksSaved: List<Artwork>, navController: NavController, viewModel: ArtworkViewModel
+    artworksSaved: List<Artwork>, navController: NavController, artworkViewModel: ArtworkViewModel,
+    savedArtworkViewModel: SavedArtworkViewModel
 ) {
     Column {
         AppBar("Избранное", navController)
-        SearchMenu(viewModel)
+        SearchMenu(artworkViewModel)
         Box(modifier = Modifier.background(Color.White)) {
-            if (viewModel.isLoading.value == true) {
+            if (savedArtworkViewModel.isLoading.value == true) {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
@@ -66,12 +77,12 @@ fun ArtworkSaved(
                     )
                 }
             } else {
-                if (viewModel.isLoading.value == false) {
+                if (artworksSaved.isNotEmpty()) {
                     LazyVerticalGrid(columns = GridCells.Fixed(2)) {
                         items(artworksSaved) { item ->
-                            ArtworkItem(artwork = item, R.drawable.bookmark_red_small) {
+                            ArtworkItem(artwork = item, savedArtworkViewModel) {
                                 val action =
-                                    ArtworksFragmentDirections.actionArtworksFragmentToArtworkDetailFragment(
+                                    ArtworksSavedFragmentDirections.actionArtworkSavedFragmentToArtworkDetailFragment(
                                         item
                                     )
                                 navController.navigate(action)

@@ -1,4 +1,4 @@
-package com.example.five.artworklist.presentation.compose
+package com.example.five.savedartworklist.presentation.compose
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -34,11 +34,17 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.five.R
 import com.example.five.artworklist.domain.models.Artwork
+import com.example.five.artworklist.domain.models.toSavedArtworkEntity
+import com.example.five.savedartworklist.presentation.SavedArtworkViewModel
 
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun ArtworkItem(artwork: Artwork, idImage: Int, onClick: () -> Unit) {
+fun ArtworkItem(
+    artwork: Artwork,
+    viewModel: SavedArtworkViewModel,
+    onClick: () -> Unit
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -115,11 +121,23 @@ fun ArtworkItem(artwork: Artwork, idImage: Int, onClick: () -> Unit) {
                     }
                 }
                 Image(
-                    painter = painterResource(id = idImage),
-                    contentDescription = "",
                     modifier = Modifier
                         .padding(dimensionResource(id = R.dimen.padding_image))
                         .weight(1f)
+                        .clickable {viewModel.toggleSavedArtwork(artwork.toSavedArtworkEntity())},
+                    painter = if (artwork.isBookmarked) {
+                        painterResource(id = R.drawable.bookmark_red_small)
+                    } else {
+                        //код, если Artwork не является закладкой
+                        painterResource(id = R.drawable.bookmark)
+                    },
+                    contentDescription = if (artwork.isBookmarked) {
+                        //код, если Artwork является закладкой
+                        "Bookmarked"
+                    } else {
+                        //код, если Artwork не является закладкой
+                        "Not bookmarked"
+                    }
                 )
             }
         }

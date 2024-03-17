@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.five.artworklist.presentation.compose.ArtworkScreen
+import com.example.five.savedartworklist.presentation.SavedArtworkViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -32,7 +33,7 @@ class ArtworksFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setContent {
                 val artworks by artworkViewModel.artworks.observeAsState(emptyList())
-                artworks?.let { ArtworkScreen(artworks = it, nameCategory, findNavController(), artworkViewModel) }
+                ArtworkScreen(artworks = artworks, nameCategory, findNavController(), artworkViewModel)
             }
         }
     }

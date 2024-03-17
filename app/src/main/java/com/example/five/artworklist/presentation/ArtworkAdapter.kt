@@ -11,7 +11,7 @@ class ArtworkAdapter(private var artworksList: List<Artwork>): RecyclerView.Adap
     class ArtworkViewHolder(val composeView: ComposeView) : RecyclerView.ViewHolder(composeView) {
         fun bind(artwork: Artwork) {
             composeView.setContent {
-                ArtworkItem(artwork = artwork, R.drawable.bookmark) {}
+
             }
         }
     }

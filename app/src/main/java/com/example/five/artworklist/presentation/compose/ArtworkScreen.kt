@@ -43,6 +43,7 @@ import com.example.five.R
 import com.example.five.artworklist.domain.models.Artwork
 import com.example.five.artworklist.presentation.ArtworkViewModel
 import com.example.five.artworklist.presentation.ArtworksFragmentDirections
+import com.example.five.savedartworklist.presentation.SavedArtworkViewModel
 
 
 @Composable
@@ -147,13 +148,13 @@ fun ArtworkScreen(
     artworks: List<Artwork>,
     nameCategory: String,
     navController: NavController,
-    viewModel: ArtworkViewModel
+    artworkViewModel: ArtworkViewModel
 ) {
     Column {
         AppBar(nameCategory, navController)
-        SearchMenu(viewModel)
+        SearchMenu(artworkViewModel)
         Box(modifier = Modifier.background(Color.White)) {
-            if (viewModel.isLoading.value == true) {
+            if (artworkViewModel.isLoading.value == true) {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
@@ -179,7 +180,7 @@ fun ArtworkScreen(
                 if (artworks.isNotEmpty()) {
                     LazyVerticalGrid(columns = GridCells.Fixed(2)) {
                         items(artworks) { item ->
-                            ArtworkItem(artwork = item, R.drawable.bookmark) {
+                            ArtworkItem(artwork = item, artworkViewModel) {
                                 val action =
                                     ArtworksFragmentDirections.actionArtworksFragmentToArtworkDetailFragment(
                                         item
